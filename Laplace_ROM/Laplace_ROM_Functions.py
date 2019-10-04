@@ -221,11 +221,12 @@ def transfer_func_error(vals, hat_val_list, label_list, data = None, title = "")
     
     if data != None:
         freqs_trained = np.concatenate((data[0][0], data[0][1]))
-        observed_H = np.concatenate((data[1][0], data[1][1]))
-        actual_H = [H(freq) for freq in freqs_trained]
-        plt.semilogx(np.imag(freqs_trained), abs(observed_H - actual_H), 
-                     label = "Observed Data", linestyle = 'None', marker = 'p')
+        plt.axvline(np.imag(freqs_trained[0]), color = 'black', linestyle = '--', 
+                    linewidth = 0.25, label = 'Training Frequencies')
+        for freq in freqs_trained[1:]:
+            plt.axvline(np.imag(freq), color = 'black', linestyle = '--', linewidth = 0.25)
     
+    plt.yscale('log')
     plt.xlabel('Frequency')
     plt.ylabel('Error')
     if title != "":

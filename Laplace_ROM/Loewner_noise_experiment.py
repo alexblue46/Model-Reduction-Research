@@ -38,7 +38,8 @@ d1_hat_vals_1 = Loewner_Framework(data_d1_1, tol, convert_to_real)
 d1_hat_vals_5 = Loewner_Framework(data_d1_5, tol, convert_to_real)
 
 transfer_func_error(d1_vals, [d1_hat_vals_0, d1_hat_vals_1, d1_hat_vals_5], 
-                    ["No Noise", "1% Noise", "5% Noise"], 
+                    ["No Noise", "1% Noise", "5% Noise"],
+                    data_d1_0,
                     title = "One Dimensional Error with Various Levels of Noise")
 if convert_to_real:
     output_error(d1_vals, [d1_hat_vals_0, d1_hat_vals_1, d1_hat_vals_5], 
@@ -60,7 +61,8 @@ d2_hat_vals_1 = Loewner_Framework(data_d2_1, tol, convert_to_real)
 d2_hat_vals_5 = Loewner_Framework(data_d2_5, tol, convert_to_real)
 
 transfer_func_error(d2_vals, [d2_hat_vals_0, d2_hat_vals_1, d2_hat_vals_5], 
-                    ["No Noise", "1% Noise", "5% Noise"], 
+                    ["No Noise", "1% Noise", "5% Noise"],
+                    data = data_d1_0,
                     title = "Two Dimensional Error with Various Levels of Noise")
 if convert_to_real:
     output_error(d2_vals, [d2_hat_vals_0, d2_hat_vals_1, d2_hat_vals_5], 
