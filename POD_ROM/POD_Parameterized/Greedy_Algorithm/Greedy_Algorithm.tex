@@ -1,0 +1,83 @@
+\documentclass[12pt]{article} 
+\usepackage{fullpage}
+\usepackage{times}
+\usepackage[normalem]{ulem}
+\usepackage{amsthm}
+\usepackage{fancyhdr,graphicx,amsmath,amssymb, mathtools, scrextend, titlesec, enumitem}
+\usepackage[ruled,vlined]{algorithm2e} 
+\include{pythonlisting}
+\usepackage{float}
+
+
+\title{Greedy Algorithm and Proofs}
+\author{Alex Bluestein}
+\date{June 26, 2019}
+\begin{document} 
+\maketitle
+
+\begin{algorithm}
+\caption{Greedy ROM}
+\KwIn{Set $\theta_{train}$, Force vector $f \in \mathbb{R}^n$, Quantity of interest vector $\ell \in \mathbb{R}^n$, Function $A: \mathbb{R} \rightarrow \mathbb{R}^{n \times n}$ such that $A(\theta) y(\theta) = f$, $\alpha > \|A(\theta)^{-1}\| \quad \forall \theta \in \theta_{train}$, $tol \in \mathbb{R}$}
+
+\KwOut{Reduced order model $V \in \mathbb{R}^{n \times r}$ where $r << n$}
+
+\hrulefill\\
+
+\nl Let $\theta_{init}$ be an arbitrary element in $\theta_{train}$\;
+\nl $\theta_{train} \gets \theta_{train} \setminus \{\theta_{init}\}$\;
+\nl $V \gets A(\theta_{init})^{-1}f$\;
+
+\nl \While{$\theta_{train} \neq \emptyset$}{
+    \nl $\Delta_{max} \gets 0$\;
+    \nl $\theta_{max} \gets null$\;
+    \nl \ForEach{$\theta \in \theta_{train}$}{
+        \nl $A \gets A(\theta)$\;
+        \nl $\widehat{A} \gets V^T A V$\;
+        \nl $\widehat{y} \gets \widehat{A}^{-1} V^T f$\;
+        \nl $\widehat{p} \gets (\widehat{A}^T)^{-1} V^T \ell$\;
+        \nl $\Delta \gets \alpha *\|f - A V \widehat{y}\| * \|\ell - A^T V \widehat{p}\|$\;
+        \nl \If{$\Delta > \Delta_{max}$}{
+            \nl $\Delta_{max} \gets \Delta$\;
+            \nl $\theta_{max} \gets \theta$\;
+        }
+    }
+    \nl \uIf{$\Delta_{max} < tol$}{
+        \nl \Return{$V$}\;
+    }
+    \Else{
+        \nl $\theta_{train} \gets \theta_{train} \setminus \{\theta_{max}\}$\;
+        \nl $y \gets A(\theta_{max})^{-1} f$\;
+        \nl $y_{orthogonal} \gets y - \textit{proj}_{V_1} y - \dots - \textit{proj}_{V_r} y$\;
+        \nl $V \gets \left[ V \ | \ y_{orthogonal} \right]$\;
+    }
+}
+\nl \Return{Error: ROM could not be computed with given tolerance}\;
+\end{algorithm}
+
+\newtheorem{theorem}{Theorem}
+
+\begin{theorem}
+$y(\theta_1), \dots, y(\theta_{r + 1})$ constructed with greedy selection are independent.
+\end{theorem}
+
+\begin{proof}
+Since $span(V) = span(\{\theta_1, 
+\dots \theta_{r+1}\})$ after $r$ iterations, proving that $y(\theta_1), \dots, y(\theta_{r + 1})$ are linearly independent is equivalent to proving that $y(\theta_{r+1}) \notin R(V)$ where $V$ is constructed after $r-1$ iterations.
+\\
+\\
+Assume by contradiction that $y(\theta_{r+1}) \in R(V)$. Therefore, $\exists \widehat{y}(\theta_{r+1})$ such that $V \widehat{y}(\theta_{r+1}) = y(\theta_{r+1})$. Evaluate the $\Delta$ of $\theta_{r+1}$ knowing that $A(\theta_{r+1})y(\theta_{r+1})=f$ and $V \widehat{y}(\theta_{r+1}) = y(\theta_{r+1})$:
+\\
+\\
+$y(\theta_{r+1}) = A(\theta_{r+1})^{-1} f$, so $V \widehat{y}(\theta_{r+1}) = A(\theta_{r+1})^{-1} f$
+\\
+Multiply on the left by $V^T A(\theta_{r+1})$: $V^T A(\theta_{r+1}) V \widehat{y}(\theta_{r+1}) = V^T A(\theta_{r+1}) A(\theta_{r+1})^{-1} f = V^T f$
+\\
+Therefore, $\widehat{y}$ in the algorithm is equal to $\widehat{y}(\theta_{r+1})$.
+\\
+$\|f - A V \widehat{y}\| = \|f - A y\| = \|f -f \| = 0$
+\\
+\\
+Therefore, $\Delta = 0$ which means that $\theta_{r+1}$ would not be selected in this iteration of the greedy algorithm. This is a contradiction to the assumption, so $y(\theta_{r+1}) \notin R(V)$, which means that $y(\theta_1), \dots, y(\theta_{r + 1})$ constructed with greedy selection are independent.
+\end{proof}
+
+\end{document}
