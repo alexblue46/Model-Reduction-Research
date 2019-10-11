@@ -1,0 +1,35 @@
+%\ProvidesPackage{beamerthemesplit}[2003/10/29 ver 0.92]
+\ProvidesPackage{mybeamertheme}[2004/04/27 ver 0.92]
+\NeedsTeXFormat{LaTeX2e}[1995/12/01]
+
+% Copyright 2003 by Till Tantau <tantau@cs.tu-berlin.de>.
+%
+% This program can be redistributed and/or modified under the terms
+% of the LaTeX Project Public License Distributed from CTAN
+% archives in directory macros/latex/base/lppl.txt.
+
+\mode<presentation>
+
+\beamertemplatelargetitlepage
+\beamertemplatelargepartpage
+\beamertemplatelargeframetitle
+\beamertemplateplaintoc
+\beamertemplatelargeblocks
+
+\setbeamertemplate{navigation symbols}{}
+
+ 
+\usefoottemplate{%
+  \vbox{\tiny%
+  \hbox{%
+  \setbox\beamer@linebox=\hbox to\paperwidth{%
+   {\hskip.5cm\tiny\color{structure}\textbf{\insertshortauthor} \hfill \textbf{\insertshortdate}
+    \hfill\textbf{\insertframenumber}\hskip.5cm}}%
+  \ht\beamer@linebox=2.625ex%
+  \dp\beamer@linebox=0pt%
+  \setbox\beamer@linebox=\vbox{\box\beamer@linebox\vskip1.125ex}%
+  \color{white}\hskip-\Gm@lmargin\vrule width.5\paperwidth
+  height\ht\beamer@linebox\color{white}\vrule width.5\paperwidth 
+  height\ht\beamer@linebox\hskip-\paperwidth% 
+  \hbox{\box\beamer@linebox\hfill}\hfill \hskip-\Gm@rmargin}}}
+

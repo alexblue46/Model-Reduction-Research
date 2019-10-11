@@ -1,0 +1,43 @@
+\section{Introduction}
+
+\begin{frame}{Problem}
+Given\\
+\bigskip
+$\bA, {\bf E} \in \real^{n \times n}$, ${\bf B} \in \real^{n \times m}$, ${\bf C} \in \real^{k \times n}$, and ${\bf D} \in \real^{k \times m}$\\
+\bigskip
+consider a system with $m$ inputs and $k$ outputs of the type:
+\begin{align*}
+            {\bf E}\frac{d}{dt} {\bf y}(t)  &= \bA {\bf y}(t) + {\bf B}{\bf u}(t)\\
+            {\bf z}(t) &= {\bf C} {\bf y}(t) + {\bf D}{\bf u}(t)
+\end{align*}
+
+with n large (\(>1000\)). !!Expensive to solve!!
+\bigskip
+
+Goal - Create a reduced order model\\
+\bigskip
+$\widehat \bA, {\bf \widehat E} \in \real^{r \times r}$, ${\bf \widehat B} \in \real^{r \times m}$, ${\bf \widehat C} \in \real^{k \times r}$, and ${\bf \widehat D} \in \real^{k \times m}$\\
+\bigskip
+with r small (\(<20\)) that approximates the original model
+
+
+\end{frame}
+
+%%%%%%%%%%%%
+
+\begin{frame}{Reduced Order Model Techniques}
+
+Our research focuses on:
+\bigskip
+    \begin{itemize}
+        \item <1-> Interpolatory techniques
+        \begin{itemize}
+            \item <1-> Projection Based
+            \item <1-> Loewner Method
+        \end{itemize}
+    \end{itemize}
+    \bigskip
+    Each technique will require working in frequency space.\\
+    \bigskip
+    To operate in frequency space, we must apply the Laplace Transform to the time-dependent system.
+\end{frame}
