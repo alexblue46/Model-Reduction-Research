@@ -1,4 +1,4 @@
-from Laplace_ROM_Functions import *
+from Loewner_ROM_Functions import *
 from model_problems import *
 
 import numpy as np
@@ -33,9 +33,12 @@ data_d1_0 = get_data(freqs, d1_vals, method)
 data_d1_1 = get_data(freqs, d1_vals, method, noise = 0.01)
 data_d1_5 = get_data(freqs, d1_vals, method, noise = 0.05)
 
-d1_hat_vals_0 = Loewner_Framework(data_d1_0, tol, convert_to_real)
-d1_hat_vals_1 = Loewner_Framework(data_d1_1, tol, convert_to_real)
-d1_hat_vals_5 = Loewner_Framework(data_d1_5, tol, convert_to_real)
+d1_hat_vals_0 = Loewner_Framework(data_d1_0, tol, convert_to_real, 
+                                  show_sing_vals = True, title = "One dimensional no noise")
+d1_hat_vals_1 = Loewner_Framework(data_d1_1, tol, convert_to_real,
+                                  show_sing_vals = True, title = "One dimensional 1% noise")
+d1_hat_vals_5 = Loewner_Framework(data_d1_5, tol, convert_to_real,
+                                  show_sing_vals = True, title = "One dimensional 5% noise")
 
 transfer_func_error(d1_vals, [d1_hat_vals_0, d1_hat_vals_1, d1_hat_vals_5], 
                     ["No Noise", "1% Noise", "5% Noise"],
@@ -56,9 +59,12 @@ data_d2_0 = get_data(freqs, d2_vals, method)
 data_d2_1 = get_data(freqs, d2_vals, method, noise = 0.01)
 data_d2_5 = get_data(freqs, d2_vals, method, noise = 0.05)
 
-d2_hat_vals_0 = Loewner_Framework(data_d2_0, tol, convert_to_real)
-d2_hat_vals_1 = Loewner_Framework(data_d2_1, tol, convert_to_real)
-d2_hat_vals_5 = Loewner_Framework(data_d2_5, tol, convert_to_real)
+d2_hat_vals_0 = Loewner_Framework(data_d2_0, tol, convert_to_real, 
+                                  show_sing_vals = True, title = "Two dimensional no noise")
+d2_hat_vals_1 = Loewner_Framework(data_d2_1, tol, convert_to_real,
+                                  show_sing_vals = True, title = "Two dimensional 1% noise")
+d2_hat_vals_5 = Loewner_Framework(data_d2_5, tol, convert_to_real,
+                                  show_sing_vals = True, title = "Two dimensional 5% noise")
 
 transfer_func_error(d2_vals, [d2_hat_vals_0, d2_hat_vals_1, d2_hat_vals_5], 
                     ["No Noise", "1% Noise", "5% Noise"],
@@ -74,10 +80,5 @@ plot_eigenvalues([d2_hat_vals_0, d2_hat_vals_1, d2_hat_vals_5],
                  title = "Two Dimensional Eigenvalues with Various Levels of Noise")
 
 
-# Plot of singular values of hat vals with various levels of noise
-# Presentation directory
-# Make pres for dr antoulis
-# Clean up current presentation folder
-# Change laplace to loewner
 
 

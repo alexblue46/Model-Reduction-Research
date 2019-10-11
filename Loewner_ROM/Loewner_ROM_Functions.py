@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from scipy.integrate import solve_ivp
 
 
-def Projection_Interpolate(vals, s_vals, tol, convert_to_real, show_sing_vals = False):
+def Projection_Interpolate(vals, s_vals, tol, convert_to_real, show_sing_vals = False, title = ""):
     """
     Inputs:
         vals - Dictionary of matrices A, B, C, D, and E
@@ -77,12 +77,16 @@ def Projection_Interpolate(vals, s_vals, tol, convert_to_real, show_sing_vals = 
                      label = 'S2 normalized singular values', linestyle = 'None', marker = 'p')
         plt.axhline(tol, color = 'black', linestyle = '--', linewidth = 1, label = 'Tolerance')
         plt.legend(loc = 'best')
+        
+        if title != "":
+            plt.title("Normalized Singular Values: " + title)
+        
         plt.show()
 
     return {'A' : A_hat, 'B' : B_hat, 'C' : C_hat, 'D' : D_hat, 'E' : E_hat}
 
 
-def Loewner_Framework(data, tol, convert_to_real, show_sing_vals = False):
+def Loewner_Framework(data, tol, convert_to_real, show_sing_vals = False, title = ""):
     """
     Inputs:
         data - Tuple of the frequencies and the tranfer function data. This 
@@ -178,6 +182,10 @@ def Loewner_Framework(data, tol, convert_to_real, show_sing_vals = False):
                      label = 'S2 normalized singular values', linestyle = 'None', marker = 'p')
         plt.axhline(tol, color = 'black', linestyle = '--', linewidth = 1, label = 'Tolerance')
         plt.legend(loc = 'best')
+        
+        if title != "":
+            plt.title("Normalize Singular Values: " + title)
+        
         plt.show()
     
     return {'A' : A_hat, 'B' : B_hat, 'C' : C_hat, 'D' : D_hat, 'E' : E_hat}
