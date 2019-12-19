@@ -458,7 +458,7 @@ class NN:
 
         
 def train_and_save_model(viscosities, u, f, num_mesh_train, u_layers, f_layers, 
-                         sol_layers, maxiter, use_prev, filename):
+                         sol_layers, maxiter, filename):
     """
     Inputs:
         viscosities - training data's viscosities
@@ -550,25 +550,20 @@ def compare_NNs(model, viscosity, filename):
         
 # generate_all_training(500, 0.01, 1, 1e-5, F, FILENAME)
  
-# Experiment 1
-
-u_layers = [2, 50, 50, 1]
-sol_layers = [2, 50, 50, 1]
+u_layers = [2, 100, 1]
+sol_layers = [2, 100, 1]
 f_layers = [4, 100, 1]
-maxiter = 10000
+maxiter = 1000
 num_mesh_train = 5
-use_prev = True
 u, viscosities, f = choose_training(50, 0.01, 1, FILENAME)
 
-print("Experiment 1")
 #train_and_save_model(viscosities, u, f, num_mesh_train, u_layers, f_layers, 
-#                     sol_layers, maxiter, use_prev, "./experiment1")
+#                     sol_layers, maxiter, "./saved_models/experiment1")
 
 model = restore_model(viscosities, u, f, num_mesh_train, u_layers, f_layers, 
-                    sol_layers, maxiter, "./experiment1")
+                    sol_layers, maxiter, "./saved_models/experiment1")
 compare_NNs(model, 0.05, FILENAME)
 
-print("\n")
     
     
     
